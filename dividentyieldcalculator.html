@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dividend Yield Calculator</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="icon" href="breast.png">
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
+
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6">
+
+        <h1 class="text-3xl font-bold text-center text-gray-700 mb-6">
+            <span class="text-green-600">Dividend</span> Calculator
+        </h1>
+
+        <div class="space-y-4">
+
+            <input id="company"
+                type="text"
+                placeholder="Company Name"
+                class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 ">
+        
+
+           
+            <input id="buyamt"
+                type="number"
+                placeholder="Buying Price (Rs.)"
+                class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
+            
+                <select id="facevalue"
+                placeholder='Face Value'
+                class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 ">
+                <option value="100">Face Value Rs. 100</option>
+                <option value="50">Face Value Rs. 50</option>
+                <option value="10">Face Value Rs. 10</option>
+            </select>
+
+
+           
+            <input id="divper"
+                type="number"
+                placeholder="Dividend Percentage (%)"
+                class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
+
+            
+            <input id="kitta"
+                type="number"
+                placeholder="Your Holding Shares (Kitta)"
+                class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
+           
+
+            <button onclick="calculate()"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition">
+                Calculate
+            </button>
+
+        </div>
+
+
+        <!-- Result -->
+        <div id="result" class="hidde mt-6 bg-gray-100 p-5 rounded-xl">
+
+            <h2 class="text-xl font-bold text-gray-700 mb-3">
+                Result:-
+            </h2>
+
+            <p>
+                Company:
+                <span id="rcompany" class="font-semibold text-green-600 uppercase"></span>
+            </p>
+
+            <p>
+                Dividend Per Share:
+                Rs.
+                <span id="rdivamt" class="font-semibold"></span>
+            </p>
+
+            <p>
+                Dividend Yield:
+                <span id="ryield" class="font-semibold text-blue-600"></span>%
+            </p>
+
+            <p>
+                After 5% Tax:
+                Rs.
+                <span id="rfinal" class="font-semibold text-green-600 text-xl"></span>
+                /-
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+<script>
+
+function calculate(){
+
+    const company = document.getElementById("company").value;
+    const buyamt = Number(document.getElementById("buyamt").value);
+    const facevalue = Number(document.getElementById("facevalue").value);
+    const divper = Number(document.getElementById("divper").value);
+    const kitta = Number(document.getElementById("kitta").value);
+
+
+    if(!company || buyamt<=0 || divper<0 || kitta<=0){
+        alert("Please enter valid details");
+        return;
+    }
+
+
+    const divamt = (divper/100) * facevalue;
+
+    const divyield = (divamt / buyamt) * 100;
+
+    const finalamt = (divamt * kitta) * 0.95;
+
+
+    document.getElementById("rcompany").innerHTML = company;
+
+    document.getElementById("rdivamt").innerHTML = divamt.toFixed(2);
+
+    document.getElementById("ryield").innerHTML = divyield.toFixed(2);
+
+    document.getElementById("rfinal").innerHTML = finalamt.toFixed(2);
+
+
+    document.getElementById("result")
+    .classList.remove("hidden");
+
+}
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricity Bill Calculator</title>
+ 
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-500 to-cyan-400 flex justify-center items-center min-h-screen">
+
+    <div class="bg-white rounded-2xl shadow-2xl p-8 w-96">
+
+        <h2 class="text-2xl font-bold mb-6 text-center animate- " > 
+            <img src="light.gif"  class=" mx-auto hover:animate-spin" alt="">⚡ Electricity Bill Calculator
+        </h2>
+
+        <label for="power" class="font-semibold">Power (Watt)</label>
+        <input
+            type="number"
+            id="power"
+            placeholder="Enter Power"
+            class="w-full mt-2 mb-4 p-3 border rounded-lg">
+
+        <label for="hour" class="font-semibold">Hours Used</label>
+        <input
+            type="number"
+            id="hour"
+            placeholder="Enter Hours"
+            class="w-full mt-2 mb-4 p-3 border rounded-lg">
+
+        <label for="rate" class="font-semibold">Rate (Rs per Unit)</label>
+        <input
+            type="number"
+            id="rate"
+            placeholder="Enter Rate"
+            class="w-full mt-2 mb-6 p-3 border rounded-lg">
+
+        <button
+            onclick="calculate()"
+            class="w-full bg-green-500 text-white py-3 rounded-lg hover:bg-green-600">
+            Calculate
+        </button>
+
+        <div id="result" class="mt-6 bg-white rounded-lg p-4 hidden">
+            <p id="output"></p>
+        </div>
+
+    </div>
+
+    <script>
+        function calculate() {
+
+            let p = Number(document.getElementById("power").value);
+            let h = Number(document.getElementById("hour").value);
+            let r = Number(document.getElementById("rate").value);
+
+            if (p <= 0 || h <= 0 || r <= 0) {
+                alert("Please enter valid values.");
+                return;
+            }
+
+            let unit = (p * h) / 1000;
+            let bill = unit * r;
+
+            document.getElementById("output").innerHTML = `
+                <strong>Units Consumed:</strong> ${unit.toFixed(2)} Units <br>
+                <strong>Bill Amount:</strong> Rs. ${bill.toFixed(2)}
+            `;
+
+            document.getElementById("result").classList.remove("hidden");
+        }
+    </script>
+
+</body>
+</html>

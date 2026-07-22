@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dividend Yield Calculator</title>
+    
+
+
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-blue-500 to-cyan-400  min-h-screen flex items-center justify-center">
+
+    <div class="bg-white w-[400px] rounded-2xl shadow-2xl p-5">
+
+        <!-- Animation -->
+        <lottie-player
+ src="moneyanimation.json"
+ autoplay
+ loop
+ style="width:200px; height:200px; margin:0 auto">
+</lottie-player> 
+
+        <h2 class="text-3xl font-bold text-center text-gray-700 mb-6 ">
+         <span class="text-green-600"> ROI </span>Calculator
+        </h2>
+
+        <!-- Script Name -->
+        <label className="font-semibold text-gray-700">Script Name</label>
+        <input
+            type="text"
+            id="script"
+            placeholder="e.g. NABIL"
+            class="w-full mt-2 mb-4 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+
+        <!-- Rate -->
+        <label class="font-semibold text-gray-700">Buying Price (Rs.)</label>
+        <input
+            type="number"
+            id="rate"
+            placeholder="Enter buying price"
+            class="w-full mt-2 mb-4 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+
+        <!-- Dividend -->
+        <label class="font-semibold text-gray-700">Dividend (%)</label>
+        <input
+            type="number"
+            id="dividend"
+            placeholder="Enter dividend %"
+            class="w-full mt-2 mb-6 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+
+        <button
+            onclick="calculate()"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition duration-300"
+        >
+            Calculate
+        </button>
+
+        <!-- Result -->
+        <div
+            id="result"
+            class="hidden mt-6 bg-gray-100 rounded-lg p-5"
+        >
+            <p class="mb-2">
+                <span class="font-bold">Company:</span>
+                <span id="company" class="text-green-600"></span>
+            </p>
+
+    
+
+            <p class="mb-2">
+                <span class="font-bold">Yearly Dividend:</span>
+                Rs.
+                <span id="returnAmt" class="text-green-600 font-semibold"></span>
+            </p>
+
+            <p>
+                <span class="font-bold">Return:</span>
+                <span id="returnPer" class="text-green-600 font-semibold"></span>%
+            </p>
+        </div>
+
+    </div>
+    <footer class="fixed bottom-4 left-0 right-0 text-center text-sm text-gray-700 ">
+        Developed by-
+        <span class="font-semibold italic text-green-600 hover:text-red-500 ">Gagan Maharjan</span>
+    </footer>
+   
+
+    <script>
+        function calculate() {
+
+            const script = document.getElementById("script").value.trim();
+            const rate = Number(document.getElementById("rate").value);
+            const dividend = Number(document.getElementById("dividend").value);
+
+            if (!script || rate <= 0 || dividend < 0) {
+                alert("Please enter valid details.");
+                return;
+            }
+
+            const investment = 10000;
+
+            const kitta = investment / rate;
+            const returnAmt = kitta * dividend;
+            const returnPer = (returnAmt / investment) * 100;
+
+            document.getElementById("company").textContent = script;
+           
+            document.getElementById("returnAmt").textContent = returnAmt.toFixed(2);
+            document.getElementById("returnPer").textContent = returnPer.toFixed(2);
+
+            document.getElementById("result").classList.remove("hidden");
+        }
+    </script>
+
+</body>
+</html>
